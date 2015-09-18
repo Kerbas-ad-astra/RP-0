@@ -353,7 +353,7 @@ start: #TL-1 early tech. Sounding rockets, basic structural pieces and wings. La
         entryCost: 0
         cost: 1
     # Core for V-2 stuff - early, heavy, but 20t avionics.
-    GuidanceStart1m:
+    GuidanceStart1m: &A4Guidance
         entryCost: 0
         cost: 300
         
@@ -476,6 +476,9 @@ start: #TL-1 early tech. Sounding rockets, basic structural pieces and wings. La
         cost: 12
     LMiniAircaftTail: # Bonanza tail fuselage
         cost: 1
+    # SXT He-111 alike
+    SXTke111:
+        cost: 30
     # Prop engines
     DoubleWasp-R280065W: # Prop Engine
     ShvetsovM63: # Prop Engine
@@ -494,14 +497,36 @@ start: #TL-1 early tech. Sounding rockets, basic structural pieces and wings. La
     RO-DerwentV:
         entryCost: 0
         cost: 18
+        
+    #Taerobee A-4/V-2/Bumper parts
+    # Note in mass production, the whole A-4 was only about 50-100 funds.
+    # But that's very, very unbalanced, and probably wrong to represent postwar costs anyway
+    Bumper_Control: *A4Guidance
+    Bumper_Nose:
+        entryCost: 0
+        cost: 30
+    Bumper_Body:
+        entryCost: 0
+        cost: 30
+    Bumper_Engine: &A4Engine
+        entryCost: 0
+        cost: 150
 
 subsonicFlight: # Now Supersonic Flight
-    RP0Nose-Cockpit:
+    RP0Nose-Cockpit: &X1Cockpit
         cost: 300
     # XLR11
     FASAGemini4X800Mini: &XLR11
         cost: 150 # same as AJ10
     SXTNK21BlockV: *XLR11
+    
+    #Taerobee X-1 parts
+    X1_Crew: *X1Cockpit
+    X1_Engine: *XLR11
+    X1_Body:
+        cost: 80 #FIXME
+    X1_Tail:
+        cost: 40 #ditto
 
 # TIER 1
 basicRocketry: #TL0: Vanguard, early-mid 50s tech. Includes Black Arrow engines because they're late-50s vintage.
@@ -632,6 +657,18 @@ earlyAvionics:
     RP0probeVanguardXray:
         cost: 160 # guess at cost, given experiments it carried
 
+    # US Probes Integration        
+    vanguard-1:
+        cost: 210
+        entryCost: 4200
+    vanguard-2:
+        cost: 240
+        entryCost: 4800
+    vanguard-3:
+        cost: 260
+        entryCost: 5200
+        
+
     # RN_Soviet_Probes
 
     sputnik1: *sputnik
@@ -742,7 +779,6 @@ generalRocketry: # TL1 Late 1950s/1960 tech, first real orbital LVs. Atlas, R-7,
 
     FASAAgena_Engine: &AgenaEngine # Bell 8xxx engine for Agena
         cost: 350
-    RLA_s_midengine: *AgenaEngine
     RO-AgenaEngine: *AgenaEngine
 
     # Titan engines
@@ -772,8 +808,11 @@ generalRocketry: # TL1 Late 1950s/1960 tech, first real orbital LVs. Atlas, R-7,
 
 basicConstruction:
     batteryPack:
+        cost: 18
     batteryBankMini:
+        cost: 102
     ksp_r_largeBatteryPack:
+        cost: 124
 
     # Tanks
     RCSTank1-2:
@@ -808,6 +847,24 @@ basicAvionics:
         cost: 100
     sputnik3:
         cost: 300
+        
+    # US Probes Integration   
+    pioneer_3_4:
+        cost: 210 # guess, priced higher than Pioneer 0/1/2
+        entryCost: 4200
+    explorer_6:
+        cost: 220
+        entryCost: 4400
+    pioneer_0_1_2:
+        cost: 170 # guess, priced higher than Explorer-1 given capabilities
+        entryCost: 3400
+    pioneer1_booster:
+        cost: 30
+        entryCost: 100
+    p1_decoupler:
+        cost: 10
+        entryCost: 50
+
 
 basicSolids:
     # Castor I (Sergeant / M33) solid motor
@@ -879,6 +936,20 @@ stability:
     # With Avionics! :)
     probeCoreOcto2: # a fictional "ultra-light" probe core
         cost: 1000
+    
+    # US Probes Integration 
+    grab-1:
+        cost: 100 # estimate based on capabilites in game
+        entryCost: 2000
+    tiros-1:
+        cost: 280 # estimate based on capabilites (included engine) in game
+        entryCost: 5600
+    transit2a:
+        cost: 140 # cost kept comparable with other low tech probes
+        entryCost: 2800
+    pioneer_5:
+        cost: 360
+        entryCost: 7200
 
     # Early solar -- again, expensive.
     solarPanels5:
@@ -999,7 +1070,7 @@ enhancedSurvivability: # Early capsules
         cost: 50
     FASAMercuryMiniSRB:
         cost: 2
-    FASA_Mercury_LES:
+    FASA_Mercury_LES: &MercuryLES
         entryCost: 8000
         cost: 400
     FASA_Mercury_Parachute_Box: #FIXME RC has cost issues?
@@ -1028,6 +1099,8 @@ enhancedSurvivability: # Early capsules
 
 # Stock capsule
     mk1pod: *mercury_pod
+    RO_mk1_LES: *MercuryLES
+
     
 # TIER 3
 advRocketry:
@@ -1235,6 +1308,7 @@ basicScience:
     LgRadialSolarPanel:
         entryCost: 9000
         cost: 200
+        
 
 flightControl:
     # Costed at $160 spacebucks, as it's the cost of a decent thruster ($60)
@@ -1485,8 +1559,13 @@ miniaturization:
 
     # Maybe...
     # dmImagingPlatform:
+    
+    # US Probes Integration
+    pioneer_6_7_8_9:
+        cost: 500
+        entryCost: 10000
 
-    landing:
+landing:
     miniLandingLeg:
         entryCost: 10000
         cost: 100
@@ -1494,6 +1573,24 @@ miniaturization:
     # landing probe core
     probeCoreOcto: # Surveyor
         cost: 4000
+        
+    RO-SurveyorVernier:
+        cost: 30 # not a 4-way, but it throttles. 100lbf same as the RCSBlock tho.
+        
+    #US Probes Integration
+    # Keep these grouped together since they work as a kit
+    rn_surveyor3:
+        cost: 1400
+        entryCost: 28000
+    rn_surveyor_engines:
+        cost: 310
+        entryCost: 6200
+    rn_surveyor_retro:
+        cost: 180
+        entryCost: 3600
+    rn_surveyor_solar:
+        cost: 220
+        entryCost: 4400
 
 supersonicFlight: # Advanced jet engines
     #Engines
@@ -1560,6 +1657,10 @@ hydroloxTL3:
 
 propulsionSystems: #staged combustion TL3 -- NK-15 here.
     # Bobcat's Soviet Engines -Need Costing-
+    NK33: # in NK-15 configuration
+    NK43: # in Nk-15V configuration
+    # NK15s were flown on the 4 N1 launches, from 1969 to 1972
+
     RD270:
     RD270M:
 
@@ -1804,6 +1905,11 @@ advElectrics:
         cost: 200
     1x3WPanels:
         cost: 450
+        
+    #US Probes integration
+    pioneer_10_11:
+        cost: 800
+        entryCost: 14000
 
 # TIER 5
 heavierRocketry: #TL4 Apollo Applications program, N1F, etc.
@@ -1818,14 +1924,14 @@ hydroloxTL4:
 
 precisionPropulsion:
     # Bobcat's Soviet Engines -Need Costing-
-    NK43:
-    NK33: #parts produced ~100 the program was scraped and never flown
+    # NK33 and NK43 config here, parts produced ~100 the program was scrapped and never flown
 
 advFuelSystems: # TL4 solids
     FASAGerminiSRB175_7Seg: #UA1206
         cost: 6250 # Guess from 1205 and 1207
     FASA_RO_UA1207: &UA1207 # UA1207 7-seg SRM
         cost: 7218 # 24.36m nautix, assume 1985 dollars
+        
     
     # Ermergerd this thing is HUGE.
     # Costing source http://www.astronautix.com/stages/260lidfl.htm
@@ -1870,6 +1976,24 @@ highPerformanceFuelSystems:
     solidBooster1-1: # Castor 120
     solidBooster_sm: # Star 48B (PAM-B)
         cost: 1203 # nautix 4.06m, assume 1985 dollars
+    
+    #US Probes Integration
+    pam_d: # Star 48B
+        cost: 1203
+        entryCost: 24060
+    #Keeping these parts grouped since they only work together, guessed at costs
+    ius_bottom: # 1st stage of Inertial Upper Stage
+        cost: 2000
+        entryCost: 12000
+    ius_top: # 2nd stage of Inertial Upper Stage
+        cost: 800
+        entryCost: 15000
+    ius_dec_fs: # 1st stage IUS decoupler
+        cost: 60
+        entryCost: 1200
+    ius_dec_ss: # 2nd stage IUS decoupler
+        cost: 60
+        entryCost: 1200
 
 hydroloxTL5:
     #Energia sustainer engine
@@ -1903,8 +2027,7 @@ stagedTL6:
 
 specializedFuelStorage: # TL6 solids
     solidBooster: # Castor 30XL, it's an evolution of Castor 30
-    RLA_solid_s_upper:  # ATK Orion 38
-    RLA_solid_m_upper: # ATK Orion 50
+    RLA_solid_medium_upper: # ATK Orion 50
         cost: 893
 
 hydroloxTL6:
@@ -1912,7 +2035,7 @@ hydroloxTL6:
     FASAGeminiLFTCentarCSM_D3: # Centaur D3 for Atlas III
 
 avionicsTL6:
-    RLA_resistojet: # Marquardt/Aerojet R4D-11.
+    RLA_tiny_vac: # Marquardt/Aerojet R4D-11.
     dockingPortLarge: # CBM
 
 # TIER 8
@@ -1927,9 +2050,12 @@ hydroloxTL7:
     # Bobcat's Soviet Engines -Need Costing-
     RD0146: # KB Khimavtomatiki RD-0146
     
-    engineexper05: #RL60
+    # Pratt & Whitney RL60
+    engineexper05:
+    RLA_mp_large_vac:
 
 stagedTL7:
+    # AJ26-62 config here
     # RD-0124 config here
 
 exoticFuelStorage: #TL7 solids
@@ -1949,6 +2075,13 @@ advExploration:
         cost: 300 # FIXME
 
 precisionEngineering:
+    #US Probes Integration
+    rn_voyager: # 865 mil for Voyager 1+2, reduced to 212 mil to be reasonable with other probes…, 1/40th entrycost
+        cost: 2841
+        entryCost: 90921
+    rn_vpam: # Payload assist module for Voyager, increased entrycost to offset voyager probe costs
+        cost: 970
+        entryCost: 22729
 
 specializedConstruction:
 
@@ -1991,6 +2124,41 @@ electronics:
 
 unmannedTech:
 
+    #US Probes Integration
+    magellan: # Price based on gao.gov figures, probe priced at 1/20th
+        cost: 3448
+        entryCost: 69778
+    rn_magellan_scanner: 
+        cost: 60
+        entryCost: 1200
+    neo_ulysses: # 207 mil per nasa, probe priced at 1/20th
+        cost: 2679
+        entryCost: 53596
+    galileo_mb: # costs of project were 1.362 bil, due to other projects involved I reduced to half to keep in line
+        cost: 8816
+        entryCost: 176325
+    galileo_aprobe_bot: # Bottom portion of Galileo
+        cost: 60
+        entryCost: 1200
+    galileo_aprobe: # Atmospheric Probe
+        cost: 212
+        entryCost: 2240
+    galileo_hs_bot: # 3 part Galileo heatshield below
+        cost: 30
+        entryCost: 500
+    galileo_hs_mid: 
+        cost: 30
+        entryCost: 500
+    galileo_hs_top:
+        cost: 30
+        entryCost: 500
+    galileo_probe_hs_parachute: # Heatshield parachute
+        cost: 20
+        entryCost: 250
+    rn_galileo_scanner: # SCAN scanner for Galileo probe
+        cost: 200
+        entryCost: 2000
+
 largeControl:
     # Early Control Moment Gyroscope, see #103
     advSasModule:
@@ -2016,6 +2184,52 @@ specializedElectrics:
 advUnmanned:
     probeCoreCube: # modern satellite bus
         cost: 15000 #FIXME
+    
+    #US Probes Integration
+    neo_ds1: # Deep space 1
+        cost: 1207
+        entryCost: 24139
+    neo_stardust: # Stardust Probe
+        cost: 1894
+        entryCost: 37881
+        
+largeUnmanned:
+    
+    #US Probes Integration
+    rn_messenger: # Messenger Probe
+        cost: 3775
+        entryCost: 75502
+    neo_near: # NEAR probe, Wiki States 124.9 million for development, 1/15th cost of R&D for balance
+        cost: 1131
+        entryCost: 16972
+    eos_terra: # Earth Observing Sat Terra - 1.3 bil per NASA, reduced to 712mil for gameplay/balance.. still expensive
+        cost: 6776
+        entryCost: 135536
+    eos_terraalt: # Side solar panels for Terra
+        cost: 60
+        entryCost: 1200
+    eos_aqua: # Earth Observing Sat Aqua
+        cost: 8404
+        entryCost: 168095
+    eos_aura: # Earth Observing Sat Aura
+        cost: 6644
+        entryCost: 132892
+        
+artificialIntelligence: 
+
+    #US Probes Integration
+    neo_dawn:
+        cost: 3449
+        entryCost: 68995
+    neo_deepimpact: # cost based on 333 mil project costs and probe at 1/20th
+        cost: 2729
+        entryCost: 54595
+    rn_new_horizons: 
+        cost: 5548
+        entryCost: 110975
+    eos_tdrs:
+        cost: 4857
+        entryCost: 97159
     
 advScienceTech:
 
@@ -2126,7 +2340,6 @@ advPVMaterials:
 electricalSystems:
 
 advIonPropulsion:
-    RLA_arcjet: # Alta XR-150 ResistoJet
     
 plasmaPropulsion:
 
@@ -2330,7 +2543,7 @@ ORPHANS:
     # SXT stuff
     HECS2_ProbeCore:
     LprobeFoil:
-    SXTke111:
+    SXTClyde:
     SXTBuzzard:
     25mKossak:
     SXTEntenteCordiale:
