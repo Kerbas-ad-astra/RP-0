@@ -1,0 +1,62 @@
+{
+    "spec_version" : "v1.4",
+    "identifier" : "RP-0",
+    "name"       : "Realistic Progression Zero",
+    "abstract"   : "Realistic Progression Zero - The lightweight Realism Overhaul tech tree",
+    "license"    : "CC-BY-4.0",
+    "author"     : "RP-0 Group",
+    "$kref"      : "#/ckan/github/KSP-RO/RP-0",
+    "ksp_version" : "1.0.5",
+    "release_status" : "development",
+    "depends" : [
+        { "name" : "ModuleManager" } ,
+        { "name" : "RealismOverhaul" },
+        { "name" : "SXT" },
+        { "name" : "ContractConfigurator" },
+        { "name" : "CustomBarnKit" },
+        { "name" : "DeadlyReentry" },
+        { "name" : "VenStockRevamp" },
+        { "name" : "CommunityTechTree" },
+        { "name" : "AsteroidDay" }
+    ],
+    "recommends" : [
+        { "name" : "KerbalConstructionTime" },
+        { "name" : "Taerobee" },
+        { "name" : "KerbalRenamer" },
+		{ "name" : "ConnectedLivingSpace" },
+		{ "name" : "FilterExtensions" },
+		{ "name" : "HangarExtender" },
+		{ "name" : "KSP-AVC" },
+		{ "name" : "MechJeb2" },
+		{ "name" : "B9-PWings-Fork" },
+		{ "name" : "ProceduralFairings" },
+		{ "name" : "ProceduralFairings-ForEverything" },
+		{ "name" : "ProceduralParts" },
+		{ "name" : "RCSBuildAid" },
+		{ "name" : "RealSolarSystem" },
+		{ "name" : "KSCSwitcher" },
+		{ "name" : "RemoteTech" },
+		{ "name" : "SemiSaturatableRW" },
+		{ "name" : "TACLS" },
+		{ "name" : "TACLS-Config-RealismOverhaul" },
+		{ "name" : "TextureReplacer" },
+		{ "name" : "Toolbar" }
+    ],
+    "conflicts" : [
+        { "name" : "CrowdSourcedScience" }
+    ],
+    "install" : [
+        {
+            "file"       : "GameData/RP-0",
+            "install_to" : "GameData"
+        }
+    ],
+    "x_netkan_override" : [
+        {
+            "version" : "<= v0.33",
+            "override" : {
+                "ksp_version" : "0.90"
+            }
+        }
+    ]
+}
